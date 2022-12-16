@@ -1,11 +1,6 @@
 import { Pool, ResultSetHeader } from 'mysql2/promise';
 import connection from './connection';
-
-export interface Product {
-  id?: number,
-  name: string,
-  amount: number,
-}
+import { Product } from '../interfaces/products';
 
 export default class ProductModel {
   private connection: Pool;
