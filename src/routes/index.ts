@@ -1,5 +1,7 @@
-import router from './product.router';
+import productRouter from './product.router';
+import userRouter from './user.router';
 
-const productRouters = router;
+const productRouters = productRouter;
+const userRouters = userRouter;
 
-export default productRouters;
+export { productRouters, userRouters };
