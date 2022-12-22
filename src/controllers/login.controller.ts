@@ -1,10 +1,17 @@
 import { Request, Response } from 'express';
 import LoginService from '../services/login.service';
 import { User } from '../interfaces/users';
-import jwt from '../utils/jwt';
+import JwtToken from '../utils/jwt';
 
-export default class LoginController {
-  constructor(private loginService = new LoginService()) {}
+class LoginController {
+  private loginService: LoginService;
+
+  private jwtToken: JwtToken;
+
+  constructor() {
+    this.loginService = new LoginService();
+    this.jwtToken = new JwtToken();
+  }
 
   public login = async (req: Request, res: Response) => {
     const userData: User = req.body;
@@ -16,8 +23,10 @@ export default class LoginController {
 
     const { id, username } = user;
     
-    const token = jwt.generateToken({ id, username });
+    const token = this.jwtToken.encoder({ id, username });
     
     res.status(200).json({ token });
   };
 }
+
+export default LoginController;

@@ -1,13 +1,16 @@
-import jwt from 'jsonwebtoken';
-import { User } from '../interfaces/users';
+import { Secret, sign } from 'jsonwebtoken';
 
-const secret = 'batata';
+class JwtToken {
+  private config: object;
 
-const generateToken = (data: User) => {
-  const token = jwt.sign(data, secret, { algorithm: 'HS256', expiresIn: '1d' });
-  return token;
-};
+  private secret: string;
 
-export default {
-  generateToken,
-};
+  constructor() {
+    this.config = { algorithm: 'HS256', expiresIn: '1d' };
+    this.secret = 'batata';
+  }
+
+  public encoder = (payload = {}): Secret => sign({ data: payload }, this.secret, this.config);
+}
+
+export default JwtToken;
